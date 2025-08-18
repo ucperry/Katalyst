@@ -42,16 +42,11 @@ body {
 }
 
 .logo-icon-nav {
-    width: 40px;
-    height: 40px;
-    background: #EEA437;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 96px;
+    height: 96px;
     margin-right: 10px;
-    font-size: 1.2rem;
-    color: #344877;
+    object-fit: contain;
+    display: inline-block;
 }
 
 .nav-menu {
@@ -119,16 +114,9 @@ body {
 .hero-logo {
     width: 120px;
     height: 120px;
-    background: #EEA437;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin: 0 auto 30px;
-    font-size: 3rem;
-    font-weight: 700;
-    color: #344877;
-    animation: pulse 2s infinite;
+    display: block;
+    object-fit: contain;
 }
 
 .hero h1 {
