@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprint Velocity Charts - Healthy Workplace Program</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Comfortaa:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="hwpsprintvelocity.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">K</div>
+                <div>
+                    <h1>SPRINT VELOCITY CHARTS</h1>
+                    <div class="subtitle">Healthy Workplace Program • Development Analytics</div>
+                </div>
+            </div>
+            <div class="sprint-period">
+                📊 Sprint Period: Week 1-36 | Current Sprint: 18 of 32
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Velocity Overview -->
+            <div class="section">
+                <h2>Sprint Velocity Overview</h2>
+                <div class="velocity-overview">
+                    <h3 style="color: #344877; margin-bottom: 15px;">Team Performance Summary</h3>
+                    <div class="overview-stats">
+                        <div class="stat-card">
+                            <div class="stat-number">20</div>
+                            <div class="stat-label">Current Sprint Progress</div>
+                            <div class="stat-trend trend-up">↗ 87% complete (day 8/10)</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">21.4</div>
+                            <div class="stat-label">Average Velocity</div>
+                            <div class="stat-trend trend-up">↗ 8% above target</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">94%</div>
+                            <div class="stat-label">Sprint Goal Achievement</div>
+                            <div class="stat-trend trend-up">↗ Excellent delivery</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">18</div>
+                            <div class="stat-label">Sprints Completed</div>
+                            <div class="stat-trend trend-stable">→ On schedule</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">357</div>
+                            <div class="stat-label">Total Story Points</div>
+                            <div class="stat-trend trend-up">↗ 17 sprints completed</div>
+                        </div>
+                        <div class="stat-card" title="Scope Creep: Story points added to sprints after they started, averaged over last 5 sprints. Calculated as (Points Added Mid-Sprint / Original Sprint Commitment) × 100">
+                            <div class="stat-number">12%</div>
+                            <div class="stat-label">Scope Creep</div>
+                            <div class="stat-trend trend-stable">→ Within tolerance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <span class="filter-label">View:</span>
+                    <select class="filter-select" id="chartView">
+                        <option value="velocity">Sprint Velocity</option>
+                        <option value="burndown">Burndown Chart</option>
+                        <option value="cumulative">Cumulative Flow</option>
+                        <option value="capacity">Team Capacity</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Period:</span>
+                    <select class="filter-select" id="timePeriod">
+                        <option value="last10">Last 10 Sprints</option>
+                        <option value="last20" selected>Last 20 Sprints</option>
+                        <option value="all">All Sprints</option>
+                        <option value="current">Current Quarter</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Team:</span>
+                    <select class="filter-select" id="teamFilter">
+                        <option value="all">All Teams</option>
+                        <option value="dev">Development Team</option>
+                        <option value="wellness">Wellness Team</option>
+                        <option value="facilities">Facilities Team</option>
+                    </select>
+                </div>
+                <button class="filter-button" onclick="updateCharts()">Apply Filters</button>
+            </div>
+
+            <!-- Main Velocity Chart -->
+            <div class="section">
+                <h2>Sprint Velocity Trend Analysis</h2>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Velocity Trend & Forecast</div>
+                        <div class="chart-period">Sprints 1-18 + Forecast</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="velocityChart"></canvas>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #6c757d; margin-top: 10px;">
+                        Blue bars: Completed sprints | Yellow bar: Current sprint (in progress) | Red dashed bars: Forecasted velocity | Green line: Target velocity | Orange line: Moving average
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burndown Chart -->
+            <div class="section">
+                <h2>Sprint Burndown Analysis</h2>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Current Sprint Burndown (Sprint 18)</div>
+                        <div class="chart-period">Dec 9-20, 2024</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="burndownChart"></canvas>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #6c757d; margin-top: 10px;">
+                        Blue line: Planned burndown | Orange line: Actual burndown | Green area: Ahead of schedule
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cumulative Flow -->
+            <div class="section">
+                <h2>Cumulative Flow Diagram</h2>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Work Item Flow Across States</div>
+                        <div class="chart-period">Last 10 Sprints</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="cumulativeChart"></canvas>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #6c757d; margin-top: 10px;">
+                        Shows the flow of work items through different states: Backlog → In Progress → Review → Done
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scope Creep Analysis -->
+            <div class="section">
+                <h2>Scope Creep Analysis</h2>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Scope Creep Trend (Last 6 Sprints)</div>
+                        <div class="chart-period">Story Points Added Mid-Sprint</div>
+                    </div>
+                    <div class="chart-wrapper small">
+                        <canvas id="scopeCreepChart"></canvas>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #6c757d; margin-top: 10px;">
+                        <strong>Calculation:</strong> (Points Added Mid-Sprint ÷ Original Sprint Commitment) × 100 | Red line shows 15% tolerance threshold
+                    </div>
+                </div>
+
+                <!-- Scope Creep Breakdown -->
+                <div style="background: #fff8f0; border: 2px solid #eea437; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                    <h3 style="color: #344877; margin-bottom: 15px;">Scope Additions Breakdown</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden;">
+                            <thead>
+                                <tr style="background: #344877; color: white;">
+                                    <th style="padding: 12px; text-align: left; font-size: 0.9rem;">Sprint</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 0.9rem;">Original</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 0.9rem;">Added</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 0.9rem;">% Increase</th>
+                                    <th style="padding: 12px; text-align: left; font-size: 0.9rem;">Reason</th>
+                                    <th style="padding: 12px; text-align: center; font-size: 0.9rem;">Type</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scopeBreakdownTable">
+                                <!-- Table content will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Scope Creep Insights -->
+                <div class="velocity-insights">
+                    <h3 style="color: #344877; margin-bottom: 15px;">Scope Creep Insights & Recommendations</h3>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <div class="insight-title">📊 Average Scope Creep: 10.4%</div>
+                            <div class="insight-description">Last 6 sprints averaged 10.4% scope increase, well within the 15% tolerance. Team shows good sprint planning discipline.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">🔥 Emergency Work: 22%</div>
+                            <div class="insight-description">22% of scope additions are emergency fixes. Consider dedicated support capacity to protect sprint goals.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">📈 Enhancement Requests: 38%</div>
+                            <div class="insight-description">Most scope additions are stakeholder enhancements. Improve requirement gathering in planning phase.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">⚠️ Sprint 14 Peak: 16.7%</div>
+                            <div class="insight-description">Sprint 14 exceeded tolerance due to security requirement. Future compliance needs should be planned upfront.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Capacity -->
+            <div class="section">
+                <h2>Team Capacity vs Commitment</h2>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">Capacity Planning & Utilization</div>
+                        <div class="chart-period">Sprint-by-Sprint Analysis</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="capacityChart"></canvas>
+                    </div>
+                    <div style="font-size: 0.85rem; color: #6c757d; margin-top: 10px;">
+                        Blue bars: Available capacity | Orange bars: Actual commitments | Yellow dashed bars: Planned commitments | Green line: Actual capacity utilization %
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint Details -->
+            <div class="section">
+                <h2>Sprint Performance Details</h2>
+                <div class="sprint-details">
+                    <div class="sprint-card current">
+                        <div class="sprint-header">
+                            <div class="sprint-title">Sprint 18 - Mental Health Module</div>
+                            <div class="sprint-status status-current">Current</div>
+                        </div>
+                        <div class="sprint-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">23</div>
+                                <div class="metric-label">Story Points</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">8</div>
+                                <div class="metric-label">Tasks Completed</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">2</div>
+                                <div class="metric-label">Days Remaining</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">87%</div>
+                                <div class="metric-label">Progress</div>
+                            </div>
+                        </div>
+                        <div class="sprint-progress">
+                            <div class="progress-text">
+                                <span>Sprint Progress</span>
+                                <span>20/23 points completed</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 87%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sprint-card completed">
+                        <div class="sprint-header">
+                            <div class="sprint-title">Sprint 17 - Food Vendor Integration</div>
+                            <div class="sprint-status status-completed">Completed</div>
+                        </div>
+                        <div class="sprint-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">21</div>
+                                <div class="metric-label">Story Points</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">12</div>
+                                <div class="metric-label">Tasks Completed</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">95%</div>
+                                <div class="metric-label">Goal Achievement</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">0</div>
+                                <div class="metric-label">Blockers</div>
+                            </div>
+                        </div>
+                        <div class="sprint-progress">
+                            <div class="progress-text">
+                                <span>Sprint Velocity</span>
+                                <span>20/21 points delivered</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sprint-card planned">
+                        <div class="sprint-header">
+                            <div class="sprint-title">Sprint 19 - Analytics Dashboard</div>
+                            <div class="sprint-status status-planned">Planned</div>
+                        </div>
+                        <div class="sprint-metrics">
+                            <div class="metric-item">
+                                <div class="metric-value">24</div>
+                                <div class="metric-label">Planned Points</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">11</div>
+                                <div class="metric-label">Planned Tasks</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">Dec 23</div>
+                                <div class="metric-label">Start Date</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value">High</div>
+                                <div class="metric-label">Priority</div>
+                            </div>
+                        </div>
+                        <div class="sprint-progress">
+                            <div class="progress-text">
+                                <span>Planning Status</span>
+                                <span>Stories estimated & ready</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Performance -->
+            <div class="section">
+                <h2>Individual Team Performance</h2>
+                <div class="team-performance">
+                    <h3 style="color: #344877; margin-bottom: 15px;">Team Member Velocity Contributions</h3>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="member-name">Sarah Chen</div>
+                            <div class="member-role">Lead Developer</div>
+                            <div class="member-velocity">8.2 pts/sprint</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Mike Rodriguez</div>
+                            <div class="member-role">Full-Stack Developer</div>
+                            <div class="member-velocity">7.8 pts/sprint</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Emma Thompson</div>
+                            <div class="member-role">UX/UI Designer</div>
+                            <div class="member-velocity">5.5 pts/sprint</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">David Park</div>
+                            <div class="member-role">DevOps Engineer</div>
+                            <div class="member-velocity">4.2 pts/sprint</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Lisa Wang</div>
+                            <div class="member-role">QA Engineer</div>
+                            <div class="member-velocity">3.8 pts/sprint</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-name">Alex Johnson</div>
+                            <div class="member-role">Business Analyst</div>
+                            <div class="member-velocity">2.9 pts/sprint</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Velocity Insights -->
+            <div class="section">
+                <h2>Performance Insights & Recommendations</h2>
+                <div class="velocity-insights">
+                    <h3 style="color: #344877; margin-bottom: 15px;">AI-Powered Analytics</h3>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <div class="insight-title">🎯 Velocity Trending Up</div>
+                            <div class="insight-description">Team velocity has increased 12% over the last 5 sprints, indicating improved collaboration and process maturity. Continue current practices.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">⚠️ Capacity Overcommitment</div>
+                            <div class="insight-description">Sprint 16-17 showed 105% capacity utilization. Consider reducing commitment by 2-3 story points per sprint for sustainable pace.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">🚀 High Sprint Goal Achievement</div>
+                            <div class="insight-description">94% sprint goal achievement rate is excellent. The team consistently delivers committed work with minimal spillover.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">📊 Predictable Delivery</div>
+                            <div class="insight-description">Velocity standard deviation is only 2.3 points, indicating highly predictable delivery. Use this for accurate forecasting.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">🔄 Optimal Sprint Length</div>
+                            <div class="insight-description">2-week sprint cycles are working well. Team shows consistent rhythm and minimal mid-sprint scope changes.</div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-title">💡 Focus Area Recommendation</div>
+                            <div class="insight-description">Technical debt stories take 20% longer than estimated. Consider adding buffer time or dedicated tech debt sprints.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart configurations and data
+        const chartColors = {
+            primary: '#44a18e',
+            secondary: '#eea437',
+            success: '#28a745',
+            danger: '#dc3545',
+            warning: '#ffc107',
+            info: '#17a2b8',
+            light: '#f8f9fa',
+            dark: '#343a40'
+        };
+
+        // Sprint velocity data
+        const sprintData = {
+            labels: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4', 'Sprint 5', 'Sprint 6', 'Sprint 7', 'Sprint 8', 'Sprint 9', 'Sprint 10', 'Sprint 11', 'Sprint 12', 'Sprint 13', 'Sprint 14', 'Sprint 15', 'Sprint 16', 'Sprint 17', 'Sprint 18', 'Sprint 19', 'Sprint 20'],
+            velocity: [15, 18, 16, 22, 19, 24, 21, 23, 20, 25, 22, 26, 24, 21, 23, 25, 21, null, null, null], // Sprint 18 in progress, 19-20 are future
+            velocityCurrent: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 20, null, null], // Current sprint partial progress
+            forecast: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 23, 22], // Forecasted velocity
+            target: [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
+            movingAverage: [15, 16.5, 16.3, 18.8, 19, 21.7, 21.3, 22.7, 21.3, 22.7, 22.3, 24.3, 24, 23.7, 22.7, 23, 23, null, null, null]
+        };
+
+        // Burndown data for current sprint
+        const burndownData = {
+            labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5', 'Day 6', 'Day 7', 'Day 8', 'Day 9', 'Day 10'],
+            planned: [23, 20.7, 18.4, 16.1, 13.8, 11.5, 9.2, 6.9, 4.6, 2.3, 0],
+            actual: [23, 21, 19, 15, 12, 10, 8, 5, 3, 3, null]
+        };
+
+        // Cumulative flow data
+        const cumulativeData = {
+            labels: ['Sprint 9', 'Sprint 10', 'Sprint 11', 'Sprint 12', 'Sprint 13', 'Sprint 14', 'Sprint 15', 'Sprint 16', 'Sprint 17', 'Sprint 18'],
+            backlog: [45, 42, 38, 35, 32, 28, 25, 22, 18, 15],
+            inProgress: [8, 12, 15, 18, 16, 14, 12, 10, 8, 6],
+            review: [3, 5, 8, 6, 9, 7, 5, 4, 3, 2],
+            done: [24, 49, 69, 93, 117, 142, 165, 187, 208, 231]
+        };
+
+        // Scope creep data
+        const scopeCreepData = {
+            labels: ['Sprint 13', 'Sprint 14', 'Sprint 15', 'Sprint 16', 'Sprint 17', 'Sprint 18'],
+            originalCommitment: [24, 21, 23, 25, 21, 23],
+            addedMidSprint: [2.0, 3.5, 1.5, 2.8, 2.5, 1.8],
+            scopeCreepPercent: [8.3, 16.7, 6.5, 11.2, 11.9, 7.8],
+            tolerance: [15, 15, 15, 15, 15, 15] // 15% tolerance line
+        };
+
+        // Scope creep breakdown data
+        const scopeBreakdown = [
+            { sprint: 'Sprint 18', original: 23, added: 1.8, reason: 'Critical bug fix', type: 'Emergency' },
+            { sprint: 'Sprint 17', original: 21, added: 2.5, reason: 'Stakeholder request', type: 'Enhancement' },
+            { sprint: 'Sprint 16', original: 25, added: 2.8, reason: 'Technical debt', type: 'Technical' },
+            { sprint: 'Sprint 15', original: 23, added: 1.5, reason: 'UX improvement', type: 'Enhancement' },
+            { sprint: 'Sprint 14', original: 21, added: 3.5, reason: 'Security requirement', type: 'Compliance' }
+        ];
+        const capacityData = {
+            labels: ['Sprint 14', 'Sprint 15', 'Sprint 16', 'Sprint 17', 'Sprint 18', 'Sprint 19', 'Sprint 20'],
+            capacity: [25, 24, 26, 22, 25, 24, 25], // Team capacity can be planned ahead
+            commitment: [21, 23, 25, 21, 23, null, null], // Only committed through current sprint
+            plannedCommitment: [null, null, null, null, null, 24, 22], // Future planned commitments
+            utilization: [84, 96, 96, 95, 92, null, null] // Only actual utilization for completed sprints
+        };
+
+        // Initialize charts
+        function initializeCharts() {
+            // Velocity Chart
+            const velocityCtx = document.getElementById('velocityChart').getContext('2d');
+            new Chart(velocityCtx, {
+                type: 'bar',
+                data: {
+                    labels: sprintData.labels,
+                    datasets: [{
+                        label: 'Completed Velocity',
+                        data: sprintData.velocity,
+                        backgroundColor: chartColors.primary,
+                        borderColor: chartColors.primary,
+                        borderWidth: 1
+                    }, {
+                        label: 'Current Sprint (In Progress)',
+                        data: sprintData.velocityCurrent,
+                        backgroundColor: chartColors.warning,
+                        borderColor: chartColors.warning,
+                        borderWidth: 1
+                    }, {
+                        label: 'Forecasted Velocity',
+                        data: sprintData.forecast,
+                        backgroundColor: chartColors.danger + '60',
+                        borderColor: chartColors.danger,
+                        borderWidth: 1,
+                        borderDash: [5, 5]
+                    }, {
+                        label: 'Target Velocity',
+                        data: sprintData.target,
+                        type: 'line',
+                        borderColor: chartColors.success,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        pointBackgroundColor: chartColors.success
+                    }, {
+                        label: '3-Sprint Moving Average',
+                        data: sprintData.movingAverage,
+                        type: 'line',
+                        borderColor: chartColors.secondary,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        pointBackgroundColor: chartColors.secondary
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Sprint Velocity Trend & Moving Average'
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Story Points'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Sprint'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Burndown Chart
+            const burndownCtx = document.getElementById('burndownChart').getContext('2d');
+            new Chart(burndownCtx, {
+                type: 'line',
+                data: {
+                    labels: burndownData.labels,
+                    datasets: [{
+                        label: 'Planned Burndown',
+                        data: burndownData.planned,
+                        borderColor: chartColors.primary,
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        pointBackgroundColor: chartColors.primary
+                    }, {
+                        label: 'Actual Burndown',
+                        data: burndownData.actual,
+                        borderColor: chartColors.secondary,
+                        backgroundColor: 'transparent',
+                        borderWidth: 3,
+                        pointBackgroundColor: chartColors.secondary,
+                        spanGaps: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Sprint 18 Burndown Chart'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Remaining Story Points'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Sprint Days'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Cumulative Flow Chart
+            const cumulativeCtx = document.getElementById('cumulativeChart').getContext('2d');
+            new Chart(cumulativeCtx, {
+                type: 'line',
+                data: {
+                    labels: cumulativeData.labels,
+                    datasets: [{
+                        label: 'Done',
+                        data: cumulativeData.done,
+                        backgroundColor: chartColors.success + '80',
+                        borderColor: chartColors.success,
+                        fill: true
+                    }, {
+                        label: 'In Review',
+                        data: cumulativeData.review,
+                        backgroundColor: chartColors.warning + '80',
+                        borderColor: chartColors.warning,
+                        fill: true
+                    }, {
+                        label: 'In Progress',
+                        data: cumulativeData.inProgress,
+                        backgroundColor: chartColors.info + '80',
+                        borderColor: chartColors.info,
+                        fill: true
+                    }, {
+                        label: 'Backlog',
+                        data: cumulativeData.backlog,
+                        backgroundColor: chartColors.dark + '80',
+                        borderColor: chartColors.dark,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Cumulative Flow Diagram'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Cumulative Story Points'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Sprint'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Scope Creep Chart
+            const scopeCreepCtx = document.getElementById('scopeCreepChart').getContext('2d');
+            new Chart(scopeCreepCtx, {
+                type: 'bar',
+                data: {
+                    labels: scopeCreepData.labels,
+                    datasets: [{
+                        label: 'Scope Creep %',
+                        data: scopeCreepData.scopeCreepPercent,
+                        backgroundColor: scopeCreepData.scopeCreepPercent.map(value => 
+                            value > 15 ? chartColors.danger + '80' : chartColors.warning + '80'
+                        ),
+                        borderColor: scopeCreepData.scopeCreepPercent.map(value => 
+                            value > 15 ? chartColors.danger : chartColors.warning
+                        ),
+                        borderWidth: 2
+                    }, {
+                        label: '15% Tolerance',
+                        data: scopeCreepData.tolerance,
+                        type: 'line',
+                        borderColor: chartColors.danger,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        pointBackgroundColor: chartColors.danger
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Sprint Scope Creep Percentage'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 20,
+                            title: {
+                                display: true,
+                                text: 'Scope Creep %'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Sprint'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Populate scope breakdown table
+            const scopeTableBody = document.getElementById('scopeBreakdownTable');
+            scopeBreakdown.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.style.backgroundColor = index % 2 === 0 ? '#f8f9fa' : 'white';
+                
+                const scopePercent = ((item.added / item.original) * 100).toFixed(1);
+                const typeColor = {
+                    'Emergency': '#dc3545',
+                    'Enhancement': '#17a2b8', 
+                    'Technical': '#6f42c1',
+                    'Compliance': '#fd7e14'
+                }[item.type] || '#6c757d';
+                
+                row.innerHTML = `
+                    <td style="padding: 10px; font-weight: 600; color: #344877;">${item.sprint}</td>
+                    <td style="padding: 10px; text-align: center;">${item.original} pts</td>
+                    <td style="padding: 10px; text-align: center; color: #dc3545; font-weight: 600;">+${item.added} pts</td>
+                    <td style="padding: 10px; text-align: center; font-weight: 600;">${scopePercent}%</td>
+                    <td style="padding: 10px; font-size: 0.85rem;">${item.reason}</td>
+                    <td style="padding: 10px; text-align: center;">
+                        <span style="background: ${typeColor}20; color: ${typeColor}; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">
+                            ${item.type}
+                        </span>
+                    </td>
+                `;
+                scopeTableBody.appendChild(row);
+            });
+            const capacityCtx = document.getElementById('capacityChart').getContext('2d');
+            new Chart(capacityCtx, {
+                type: 'bar',
+                data: {
+                    labels: capacityData.labels,
+                    datasets: [{
+                        label: 'Team Capacity',
+                        data: capacityData.capacity,
+                        backgroundColor: chartColors.primary,
+                        borderColor: chartColors.primary,
+                        borderWidth: 1
+                    }, {
+                        label: 'Actual Commitment',
+                        data: capacityData.commitment,
+                        backgroundColor: chartColors.secondary,
+                        borderColor: chartColors.secondary,
+                        borderWidth: 1
+                    }, {
+                        label: 'Planned Commitment',
+                        data: capacityData.plannedCommitment,
+                        backgroundColor: chartColors.warning + '60',
+                        borderColor: chartColors.warning,
+                        borderWidth: 1,
+                        borderDash: [3, 3]
+                    }, {
+                        label: 'Utilization %',
+                        data: capacityData.utilization,
+                        type: 'line',
+                        borderColor: chartColors.success,
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        pointBackgroundColor: chartColors.success,
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Team Capacity vs Commitment'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Story Points'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            min: 0,
+                            max: 120,
+                            title: {
+                                display: true,
+                                text: 'Utilization %'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Sprint'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update charts based on filters
+        function updateCharts() {
+            const chartView = document.getElementById('chartView').value;
+            const timePeriod = document.getElementById('timePeriod').value;
+            const teamFilter = document.getElementById('teamFilter').value;
+            
+            // This would typically update the charts with filtered data
+            console.log('Updating charts with filters:', { chartView, timePeriod, teamFilter });
+            
+            // Show notification
+            alert(`Charts updated with filters: View=${chartView}, Period=${timePeriod}, Team=${teamFilter}`);
+        }
+
+        // Initialize charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            
+            // Animate progress bars
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+
+        // Add interactivity to filter controls
+        document.getElementById('chartView').addEventListener('change', function() {
+            const selectedView = this.value;
+            // This would show/hide different chart sections based on selection
+            console.log('Chart view changed to:', selectedView);
+        });
+
+        // Export functionality
+        function exportChartData() {
+            const data = {
+                velocity: sprintData,
+                burndown: burndownData,
+                cumulative: cumulativeData,
+                capacity: capacityData
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sprint-velocity-data.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Add export button functionality
+        const exportButton = document.createElement('button');
+        exportButton.textContent = 'Export Data';
+        exportButton.className = 'filter-button';
+        exportButton.style.marginLeft = '10px';
+        exportButton.onclick = exportChartData;
+        document.querySelector('.filter-controls').appendChild(exportButton);
+    </script>
+</body>
+</html>

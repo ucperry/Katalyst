@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Assessment Matrix - Healthy Workplace Program</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Comfortaa:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="hwpRisk.css">
+    </head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">K</div>
+                <div>
+                    <h1>RISK ASSESSMENT MATRIX</h1>
+                    <div class="subtitle">Healthy Workplace Program • Katalyst Consulting</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- Risk Summary -->
+            <div class="section">
+                <h2>Risk Assessment Summary</h2>
+                <div class="summary-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">18</div>
+                        <div class="stat-label">Total Risks Identified</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Critical Risks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">High Risks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Medium Risks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4</div>
+                        <div class="stat-label">Low Risks</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Probability vs Impact Matrix -->
+            <div class="section">
+                <h2>Probability vs Impact Matrix</h2>
+                <div class="risk-matrix-container">
+                    <div class="probability-impact-matrix">
+                        <!-- Headers -->
+                        <div class="matrix-cell matrix-header"></div>
+                        <div class="matrix-cell matrix-header">Very Low (1)</div>
+                        <div class="matrix-cell matrix-header">Low (2)</div>
+                        <div class="matrix-cell matrix-header">Medium (3)</div>
+                        <div class="matrix-cell matrix-header">High (4)</div>
+                        <div class="matrix-cell matrix-header">Very High (5)</div>
+                        
+                        <!-- Very High Probability -->
+                        <div class="matrix-cell matrix-label">Very High (5)</div>
+                        <div class="matrix-cell risk-medium">5</div>
+                        <div class="matrix-cell risk-high">10</div>
+                        <div class="matrix-cell risk-high">15</div>
+                        <div class="matrix-cell risk-critical">20</div>
+                        <div class="matrix-cell risk-critical">25</div>
+                        
+                        <!-- High Probability -->
+                        <div class="matrix-cell matrix-label">High (4)</div>
+                        <div class="matrix-cell risk-low">4</div>
+                        <div class="matrix-cell risk-medium">8</div>
+                        <div class="matrix-cell risk-medium">12</div>
+                        <div class="matrix-cell risk-high">16</div>
+                        <div class="matrix-cell risk-critical">20</div>
+                        
+                        <!-- Medium Probability -->
+                        <div class="matrix-cell matrix-label">Medium (3)</div>
+                        <div class="matrix-cell risk-low">3</div>
+                        <div class="matrix-cell risk-low">6</div>
+                        <div class="matrix-cell risk-medium">9</div>
+                        <div class="matrix-cell risk-medium">12</div>
+                        <div class="matrix-cell risk-high">15</div>
+                        
+                        <!-- Low Probability -->
+                        <div class="matrix-cell matrix-label">Low (2)</div>
+                        <div class="matrix-cell risk-low">2</div>
+                        <div class="matrix-cell risk-low">4</div>
+                        <div class="matrix-cell risk-low">6</div>
+                        <div class="matrix-cell risk-medium">8</div>
+                        <div class="matrix-cell risk-medium">10</div>
+                        
+                        <!-- Very Low Probability -->
+                        <div class="matrix-cell matrix-label">Very Low (1)</div>
+                        <div class="matrix-cell risk-low">1</div>
+                        <div class="matrix-cell risk-low">2</div>
+                        <div class="matrix-cell risk-low">3</div>
+                        <div class="matrix-cell risk-low">4</div>
+                        <div class="matrix-cell risk-medium">5</div>
+                    </div>
+                </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #d4edda;"></div>
+                        <span><strong>Low Risk (1-4):</strong> Monitor regularly</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #fff3cd;"></div>
+                        <span><strong>Medium Risk (5-12):</strong> Active management required</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f8d7da;"></div>
+                        <span><strong>High Risk (15-16):</strong> Immediate attention needed</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #dc3545;"></div>
+                        <span><strong>Critical Risk (20-25):</strong> Emergency response required</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Risk Register -->
+            <div class="section">
+                <h2>Detailed Risk Register</h2>
+                <div style="overflow-x: auto;">
+                    <table class="risk-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Risk Description</th>
+                                <th>Category</th>
+                                <th>Prob</th>
+                                <th>Impact</th>
+                                <th>Score</th>
+                                <th>Level</th>
+                                <th>Mitigation Strategy</th>
+                                <th>Owner</th>
+                                <th>Due Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="risk-id">R001</td>
+                                <td><strong>Low Employee Participation</strong><br>Less than 50% of employees actively participate in wellness programs</td>
+                                <td>Behavioral</td>
+                                <td><span class="probability-badge prob-4">4</span></td>
+                                <td><span class="impact-badge impact-5">5</span></td>
+                                <td><strong>20</strong></td>
+                                <td><span class="risk-level-badge badge-critical">CRITICAL</span></td>
+                                <td>Comprehensive change management, leadership endorsement, incentive programs</td>
+                                <td><span class="owner-badge">PM</span></td>
+                                <td><span class="date-badge">Month 2</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R002</td>
+                                <td><strong>Technology Platform Failure</strong><br>Step tracking app experiences major outages or data loss</td>
+                                <td>Technical</td>
+                                <td><span class="probability-badge prob-3">3</span></td>
+                                <td><span class="impact-badge impact-4">4</span></td>
+                                <td><strong>12</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Vendor SLA agreements, backup systems, pilot testing phase</td>
+                                <td><span class="owner-badge">IT</span></td>
+                                <td><span class="date-badge">Month 3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R003</td>
+                                <td><strong>Budget Overrun</strong><br>Project costs exceed allocated budget by more than 15%</td>
+                                <td>Financial</td>
+                                <td><span class="probability-badge prob-3">3</span></td>
+                                <td><span class="impact-badge impact-4">4</span></td>
+                                <td><strong>12</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Weekly budget monitoring, 8% contingency reserve, phased implementation</td>
+                                <td><span class="owner-badge">PM</span></td>
+                                <td><span class="date-badge">Ongoing</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R004</td>
+                                <td><strong>Privacy Concerns</strong><br>Employees refuse to share health/activity data due to privacy worries</td>
+                                <td>Compliance</td>
+                                <td><span class="probability-badge prob-4">4</span></td>
+                                <td><span class="impact-badge impact-4">4</span></td>
+                                <td><strong>16</strong></td>
+                                <td><span class="risk-level-badge badge-high">HIGH</span></td>
+                                <td>Clear privacy policy, opt-in participation, anonymous data aggregation</td>
+                                <td><span class="owner-badge">Legal</span></td>
+                                <td><span class="date-badge">Month 1</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R005</td>
+                                <td><strong>Food Vendor Issues</strong><br>Healthy food vendor fails to meet quality or delivery requirements</td>
+                                <td>Operational</td>
+                                <td><span class="probability-badge prob-2">2</span>
+                                <td><span class="impact-badge impact-3">3</span></td>
+                                <td><strong>6</strong></td>
+                                <td><span class="risk-level-badge badge-low">LOW</span></td>
+                                <td>Multiple vendor contracts, performance clauses, regular quality audits</td>
+                                <td><span class="owner-badge">Facilities</span></td>
+                                <td><span class="date-badge">Month 4</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R006</td>
+                                <td><strong>Leadership Resistance</strong><br>Middle management doesn't support or actively participate in program</td>
+                                <td>Political</td>
+                                <td><span class="probability-badge prob-3">3</span></td>
+                                <td><span class="impact-badge impact-5">5</span></td>
+                                <td><strong>15</strong></td>
+                                <td><span class="risk-level-badge badge-high">HIGH</span></td>
+                                <td>Executive sponsorship, manager training, performance metrics inclusion</td>
+                                <td><span class="owner-badge">CHRO</span></td>
+                                <td><span class="date-badge">Month 1</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R007</td>
+                                <td><strong>Mental Health Stigma</strong><br>Employees avoid mental health resources due to workplace stigma</td>
+                                <td>Cultural</td>
+                                <td><span class="probability-badge prob-4">4</span></td>
+                                <td><span class="impact-badge impact-3">3</span></td>
+                                <td><strong>12</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Anonymous access options, leadership participation, awareness campaigns</td>
+                                <td><span class="owner-badge">Wellness</span></td>
+                                <td><span class="date-badge">Month 3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R008</td>
+                                <td><strong>Workplace Injury</strong><br>Increased physical activity leads to employee injuries</td>
+                                <td>Safety</td>
+                                <td><span class="probability-badge prob-2">2</span></td>
+                                <td><span class="impact-badge impact-4">4</span></td>
+                                <td><strong>8</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Safety guidelines, gradual activity increase, medical clearance options</td>
+                                <td><span class="owner-badge">Safety</span></td>
+                                <td><span class="date-badge">Month 2</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R009</td>
+                                <td><strong>Data Security Breach</strong><br>Health and activity data is compromised or leaked</td>
+                                <td>Security</td>
+                                <td><span class="probability-badge prob-2">2</span></td>
+                                <td><span class="impact-badge impact-5">5</span></td>
+                                <td><strong>10</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Encryption protocols, secure servers, regular security audits</td>
+                                <td><span class="owner-badge">IT</span></td>
+                                <td><span class="date-badge">Month 2</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R010</td>
+                                <td><strong>Competing Priorities</strong><br>Other organizational initiatives reduce focus on wellness program</td>
+                                <td>Strategic</td>
+                                <td><span class="probability-badge prob-3">3</span></td>
+                                <td><span class="impact-badge impact-3">3</span></td>
+                                <td><strong>9</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Executive communication, program integration, resource protection</td>
+                                <td><span class="owner-badge">Sponsor</span></td>
+                                <td><span class="date-badge">Ongoing</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R011</td>
+                                <td><strong>Seasonal Participation Drop</strong><br>Employee engagement decreases during busy periods or holidays</td>
+                                <td>Behavioral</td>
+                                <td><span class="probability-badge prob-4">4</span></td>
+                                <td><span class="impact-badge impact-2">2</span></td>
+                                <td><strong>8</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Seasonal challenges, flexible participation options, holiday-themed activities</td>
+                                <td><span class="owner-badge">Wellness</span></td>
+                                <td><span class="date-badge">Month 6</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R012</td>
+                                <td><strong>Measurement Difficulties</strong><br>Inability to accurately measure program ROI and health outcomes</td>
+                                <td>Analytical</td>
+                                <td><span class="probability-badge prob-3">3</span></td>
+                                <td><span class="impact-badge impact-3">3</span></td>
+                                <td><strong>9</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Baseline data collection, multiple metrics, external evaluation support</td>
+                                <td><span class="owner-badge">Analytics</span></td>
+                                <td><span class="date-badge">Month 1</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R013</td>
+                                <td><strong>Regulatory Compliance Issues</strong><br>Program violates health information or workplace safety regulations</td>
+                                <td>Compliance</td>
+                                <td><span class="probability-badge prob-1">1</span></td>
+                                <td><span class="impact-badge impact-5">5</span></td>
+                                <td><strong>5</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Legal review, compliance training, regular audit procedures</td>
+                                <td><span class="owner-badge">Legal</span></td>
+                                <td><span class="date-badge">Month 1</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R014</td>
+                                <td><strong>Space Availability</strong><br>Insufficient physical space for wellness activities and quiet areas</td>
+                                <td>Operational</td>
+                                <td><span class="probability-badge prob-2">2</span></td>
+                                <td><span class="impact-badge impact-3">3</span></td>
+                                <td><strong>6</strong></td>
+                                <td><span class="risk-level-badge badge-low">LOW</span></td>
+                                <td>Space assessment, flexible scheduling, outdoor options</td>
+                                <td><span class="owner-badge">Facilities</span></td>
+                                <td><span class="date-badge">Month 2</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R015</td>
+                                <td><strong>Communication Fatigue</strong><br>Employees become overwhelmed with wellness program messaging</td>
+                                <td>Communication</td>
+                                <td><span class="probability-badge prob-3">3</span></td>
+                                <td><span class="impact-badge impact-2">2</span></td>
+                                <td><strong>6</strong></td>
+                                <td><span class="risk-level-badge badge-low">LOW</span></td>
+                                <td>Strategic communication plan, varied channels, feedback mechanisms</td>
+                                <td><span class="owner-badge">Comms</span></td>
+                                <td><span class="date-badge">Month 3</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R016</td>
+                                <td><strong>Key Personnel Departure</strong><br>Project manager or key stakeholder leaves organization during implementation</td>
+                                <td>Resource</td>
+                                <td><span class="probability-badge prob-2">2</span></td>
+                                <td><span class="impact-badge impact-4">4</span></td>
+                                <td><strong>8</strong></td>
+                                <td><span class="risk-level-badge badge-medium">MEDIUM</span></td>
+                                <td>Cross-training, documented procedures, succession planning</td>
+                                <td><span class="owner-badge">HR</span></td>
+                                <td><span class="date-badge">Ongoing</span></td>
+                            </tr>
+                            <tr>
+                                <td class="risk-id">R017</td>
+                                <td><strong>Economic Downturn Impact</strong><br>Budget cuts force program reduction or cancellation</td>
+                                <td>Financial</td>
